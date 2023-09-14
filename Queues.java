@@ -1,4 +1,9 @@
-public class Queue {
+import java.util.*;
+import java.util.LinkedList;
+
+import javax.print.DocFlavor.STRING;
+
+public class Queues {
     static class QueuesUsingArrays {
 
         static int arr[];
@@ -157,8 +162,104 @@ public class Queue {
         }
     }
 
+    static class QueueUsing2Stacks {
+        static Stack<Integer> s1 = new Stack<>();
+        static Stack<Integer> s2 = new Stack<>();
+
+        public static boolean isEmpty() {
+            return s1.isEmpty();
+        }
+
+        public static void add(int data) {
+            while (!s1.isEmpty()) {
+                s2.push(s1.pop());
+            }
+            s1.push(data);
+            while (!s2.isEmpty()) {
+                s1.push(s2.pop());
+            }
+        }
+
+        public static int remove() {
+            if (isEmpty()) {
+                System.out.println("Queue is Empty");
+                return -1;
+            }
+            return s1.pop();
+        }
+
+        public static int peek() {
+            if (isEmpty()) {
+                System.out.println("Queue is empty");
+                return -1;
+            }
+            return s1.peek();
+        }
+    }
+
+    static class StackUsing2Queues {
+        static Queue<Integer> q1 = new LinkedList<>();
+        static Queue<Integer> q2 = new LinkedList<>();
+
+        public static boolean isEmpty() {
+            return q1.isEmpty() && q2.isEmpty();
+        }
+
+        public static void push(int data) {
+            if (!q1.isEmpty())
+                q1.add(data);
+            else
+                q2.add(data);
+        }
+
+        public static int pop() {
+            if (isEmpty()) {
+                System.out.println("Empty Stack");
+                return -1;
+            }
+            int top = -1;
+            if (!q1.isEmpty()) { // case 1
+                while (!q1.isEmpty()) {
+                    top = q1.remove();
+                    if (q1.isEmpty()) {
+                        break;
+                    }
+                    q2.add(top);
+                }
+            } else { // case 2
+                while (!q2.isEmpty()) {
+                    top = q2.remove();
+                    if (q2.isEmpty()) {
+                        break;
+                    }
+                    q1.add(top);
+                }
+            }
+            return top;
+        }
+    }
+
+    // First non repeating letter in stream of letters
+    public static void printNonRepeating(String str) {
+        int freq[] = new int[26];
+        Queue<Character> q = new LinkedList<>();
+        for (int i = 0; i < str.length(); i++) {
+            char ch = str.charAt(i);
+            q.add(ch);
+            freq[ch - 'a']++;
+            while (!q.isEmpty() && freq[q.peek() - 'a'] > 1) {
+                q.remove();
+            }
+            if (q.isEmpty()) {
+                System.out.print(-1 + " ");
+            } else {
+                System.out.print(q.peek() + " ");
+            }
+        }
+    }
+
     public static void main(String[] args) {
-        QueuesUsingArrays qua = new QueuesUsingArrays(5);
+        // QueuesUsingArrays qua = new QueuesUsingArrays(5);
         // qua.add(1);
         // qua.add(2);
         // qua.add(3);
@@ -175,7 +276,7 @@ public class Queue {
         // qua.remove();
         // }
 
-        CircularQueuesUsingArrays cqua = new CircularQueuesUsingArrays(3);
+        // CircularQueuesUsingArrays cqua = new CircularQueuesUsingArrays(3);
         // cqua.add(1);
         // cqua.add(2);
         // cqua.add(3);
@@ -187,5 +288,27 @@ public class Queue {
         // System.err.println(cqua.peek());
         // cqua.remove();
         // }
+
+        // QueueUsing2Stacks qs = new QueueUsing2Stacks();
+        // qs.add(1);
+        // qs.add(2);
+        // qs.add(3);
+        // qs.add(4);
+
+        // while (!qs.isEmpty()) {
+        // System.out.println(qs.remove());
+        // }
+
+        // StackUsing2Queues sq = new StackUsing2Queues();
+        // sq.push(1);
+        // sq.push(2);
+        // sq.push(3);
+        // while (!sq.isEmpty()) {
+        // System.out.println(sq.pop());
+        // }
+
+        // First non repeating letter in stream of letters
+        // String str = "aabccxb";
+        // printNonRepeating(str);
     }
 }
