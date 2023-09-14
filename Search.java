@@ -1,6 +1,18 @@
 import java.util.Scanner;
 
-public class binary_search {
+public class Search {
+
+    // linear search
+    public static int linearSearch(int number[], int key) {
+        for (int i = 0; i < number.length; i++) {
+            if (number[i] == key) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    // binary search
     public static int binarySearch(int arr[], int key) {
         int start = 0;
         int end = arr.length - 1;
@@ -18,6 +30,15 @@ public class binary_search {
     }
 
     public static void main(String[] args) {
+        // int number[] = {12,34,32,10,8};
+        // int key = 32;
+        // int index = linearSearch(number, key);
+        // if (index == -1) {
+        // System.out.println("Not Found!");
+        // }else{
+        // System.out.println(key+" founded at index number : "+index);
+        // }
+
         try (Scanner sc = new Scanner(System.in);) {
             System.out.print("Enter size of array : ");
             int size = sc.nextInt();
@@ -36,4 +57,5 @@ public class binary_search {
             }
         }
     }
+
 }

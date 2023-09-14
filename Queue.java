@@ -4,38 +4,41 @@ public class Queue {
         static int arr[];
         static int size;
         static int rear;
-        QueuesUsingArrays(int n){
+
+        QueuesUsingArrays(int n) {
             arr = new int[n];
             size = n;
             rear = -1;
         }
 
-        public static boolean isEmpty(){
+        public static boolean isEmpty() {
             return rear == -1;
         }
 
-        public static void add(int data){
-            if(rear == size-1){
+        public static void add(int data) {
+            if (rear == size - 1) {
                 System.out.println("Queue is full");
                 return;
             }
             rear = rear + 1;
-            arr[rear] = data; 
+            arr[rear] = data;
         }
-        public static int remove(){
-            if(isEmpty()){
+
+        public static int remove() {
+            if (isEmpty()) {
                 System.out.println("Queue is Empty");
                 return -1;
             }
             int front = arr[0];
             for (int i = 0; i < rear; i++) {
-                arr[i] = arr[i+1];
+                arr[i] = arr[i + 1];
             }
             rear = rear - 1;
             return front;
         }
-        public static int peek(){
-            if(isEmpty()){
+
+        public static int peek() {
+            if (isEmpty()) {
                 System.out.println("Queue is Empty");
                 return -1;
             }
@@ -49,102 +52,111 @@ public class Queue {
         static int size;
         static int rear;
         static int front;
-        CircularQueuesUsingArrays(int n){
+
+        CircularQueuesUsingArrays(int n) {
             arr = new int[n];
             size = n;
             rear = -1;
             front = -1;
         }
 
-        public static boolean isEmpty(){
+        public static boolean isEmpty() {
             return rear == -1 && front == -1;
         }
-        public static boolean isFull(){
+
+        public static boolean isFull() {
             return (rear + 1) % size == front;
         }
-        //add
-        public static void add(int data){
-            if(isFull()){
+
+        // add
+        public static void add(int data) {
+            if (isFull()) {
                 System.out.println("Queue is full");
                 return;
             }
-            if(front == -1){
-                front = 0; 
+            if (front == -1) {
+                front = 0;
             }
             rear = (rear + 1) % size;
-            arr[rear] = data; 
+            arr[rear] = data;
         }
-        //remove
-        public static int remove(){
-            if(isEmpty()){
+
+        // remove
+        public static int remove() {
+            if (isEmpty()) {
                 System.out.println("Queue is Empty");
                 return -1;
             }
             int result = arr[front];
-            if(rear == front){
+            if (rear == front) {
                 rear = front = -1;
-            }else{
+            } else {
                 front = (front + 1) % size;
             }
             return result;
         }
-        //peek
-        public static int peek(){
-            if(isEmpty()){
+
+        // peek
+        public static int peek() {
+            if (isEmpty()) {
                 System.out.println("Queue is Empty");
                 return -1;
             }
             return arr[front];
         }
     }
-    
-    static class Node{
+
+    static class Node {
         int data;
         Node next;
 
-        Node(int data){
+        Node(int data) {
             this.data = data;
-            this.next = null; 
+            this.next = null;
         }
     }
 
-    static class QueueUsingLL{
+    static class QueueUsingLL {
         public static Node head = null;
         public static Node tail = null;
 
-        public static boolean isEmpty(){
+        public static boolean isEmpty() {
             return head == null && tail == null;
         }
-        public static void add(int data){
+
+        public static void add(int data) {
             Node newNode = new Node(data);
-            if(head == null){
+            if (head == null) {
                 head = tail = newNode;
                 return;
             }
             tail.next = newNode;
             tail = newNode;
         }
-        public static int remove(){
-            if(isEmpty()){
+
+        public static int remove() {
+            if (isEmpty()) {
                 System.out.println("Queue is Empty");
                 return -1;
             }
             int front = head.data;
-            if(head == tail){
+            if (head == tail) {
                 head = tail = null;
-            }else{
+            } else {
                 head = head.next;
             }
             return front;
         }
-        public static int peek(){
-            if(isEmpty()){
+
+        public static int peek() {
+            if (isEmpty()) {
                 System.out.println("Queue is Empty");
                 return -1;
             }
-            return head.data; 
+            return head.data;
         }
     }
+
     public static void main(String[] args) {
         QueuesUsingArrays qua = new QueuesUsingArrays(5);
         // qua.add(1);
@@ -153,14 +165,14 @@ public class Queue {
         // qua.add(4);
         // qua.add(5);
         // // qua.remove();
-        
+
         // System.out.println("Peek : " + qua.peek());
 
         // System.out.println("------------------");
 
         // while (!qua.isEmpty()) {
-        //     System.out.println(qua.peek());
-        //     qua.remove();
+        // System.out.println(qua.peek());
+        // qua.remove();
         // }
 
         CircularQueuesUsingArrays cqua = new CircularQueuesUsingArrays(3);
@@ -172,8 +184,8 @@ public class Queue {
         // System.out.println(cqua.remove());
         // cqua.add(5);
         // while (!cqua.isEmpty()) {
-        //     System.err.println(cqua.peek());
-        //     cqua.remove();
+        // System.err.println(cqua.peek());
+        // cqua.remove();
         // }
     }
 }

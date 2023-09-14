@@ -61,6 +61,22 @@ public class BitManipulation {
         return count;
     }
 
+    // binary to decimal
+    public static void binaryToDecimal(int binNum) {
+        int decNum = 0;
+        int pow = 0;
+
+        while (binNum > 0) {
+            int lastDigit = binNum % 10;
+
+            decNum = decNum + (lastDigit * (int) Math.pow(2, pow));
+            pow++;
+
+            binNum = binNum / 10;
+        }
+        System.out.println("Binary to decimal : " + decNum);
+    }
+
     public static void main(String[] args) {
         // oddEven(3);
         // oddEven(11);
@@ -74,5 +90,6 @@ public class BitManipulation {
         // System.out.println(isPowerOfTwo(8)); //true
         // System.out.println(isPowerOfTwo(15)); //false
         // System.out.println(countSetBit(15)); //gives 4
+        // binaryToDecimal(111);
     }
 }

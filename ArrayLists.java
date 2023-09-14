@@ -1,7 +1,8 @@
 import java.util.ArrayList;
 
-public class MaxWaterContainer {
+public class ArrayLists {
 
+    // Maximum Water Container
     // public static int storeWater(ArrayList<Integer> height) { // Brute Force
     // method
     // int maxWater = 0;
