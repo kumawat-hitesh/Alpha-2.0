@@ -119,7 +119,7 @@ public class LinkedList {
         return helper(head, key);
     }
 
-    // reverse a linked LinkedList
+    // reverse a LinkedList
     public void reverseLinkedList() {
         Node prev = null;
         Node curr = head;
