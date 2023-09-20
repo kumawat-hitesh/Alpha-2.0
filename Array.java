@@ -1,7 +1,7 @@
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class Arrays {
+public class Array {
 
     // Reverse an array
     public static void reverseArray(int arr[]) {

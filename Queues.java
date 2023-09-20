@@ -1,5 +1,10 @@
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Deque;
 import java.util.LinkedList;
+import java.util.PriorityQueue;
+import java.util.Queue;
+import java.util.Vector;
 
 public class Queues {
     static class QueuesUsingArrays {
@@ -160,124 +165,143 @@ public class Queues {
         }
     }
 
-    static class QueueUsing2Stacks {
-        static Stack<Integer> s1 = new Stack<>();
-        static Stack<Integer> s2 = new Stack<>();
-
-        public static boolean isEmpty() {
-            return s1.isEmpty();
-        }
-
-        public static void add(int data) {
-            while (!s1.isEmpty()) {
-                s2.push(s1.pop());
-            }
-            s1.push(data);
-            while (!s2.isEmpty()) {
-                s1.push(s2.pop());
-            }
-        }
-
-        public static int remove() {
-            if (isEmpty()) {
-                System.out.println("Queue is Empty");
-                return -1;
-            }
-            return s1.pop();
-        }
-
-        public static int peek() {
-            if (isEmpty()) {
-                System.out.println("Queue is empty");
-                return -1;
-            }
-            return s1.peek();
+    // Q.1 : Generate Binary Numbers
+    public static void generatePrintBinary(int n) {
+        Queue<String> q = new LinkedList<String>();
+        q.add("1");
+        while (n-- > 0) {
+            String s1 = q.peek();
+            q.remove();
+            System.out.println(s1);
+            String s2 = s1;
+            q.add(s1 + "0");
+            q.add(s2 + "1");
         }
     }
 
-    static class StackUsing2Queues {
-        static Queue<Integer> q1 = new LinkedList<>();
-        static Queue<Integer> q2 = new LinkedList<>();
-
-        public static boolean isEmpty() {
-            return q1.isEmpty() && q2.isEmpty();
+    // Q.2 : Connect n ropes with minimum cost
+    static int minCost(int arr[], int n) {
+        PriorityQueue<Integer> pq = new PriorityQueue<Integer>();
+        for (int i = 0; i < n; i++) {
+            pq.add(arr[i]);
         }
-
-        public static void push(int data) {
-            if (!q1.isEmpty())
-                q1.add(data);
-            else
-                q2.add(data);
+        int res = 0;
+        while (pq.size() > 1) {
+            int first = pq.poll();
+            int second = pq.poll();
+            res += first + second;
+            pq.add(first + second);
         }
+        return res;
+    }
 
-        public static int pop() {
-            if (isEmpty()) {
-                System.out.println("Empty Stack");
-                return -1;
-            }
-            int top = -1;
-            if (!q1.isEmpty()) { // case 1
-                while (!q1.isEmpty()) {
-                    top = q1.remove();
-                    if (q1.isEmpty()) {
-                        break;
-                    }
-                    q2.add(top);
-                }
-            } else { // case 2
-                while (!q2.isEmpty()) {
-                    top = q2.remove();
-                    if (q2.isEmpty()) {
-                        break;
-                    }
-                    q1.add(top);
-                }
-            }
-            return top;
+    // Q.3 : Job Sequencing Problem
+    static class Job {
+        char job_id;
+        int deadline;
+        int profit;
+
+        Job(char job_id, int deadline, int profit) {
+            this.deadline = deadline;
+            this.job_id = job_id;
+            this.profit = profit;
         }
     }
 
-    // First non repeating letter in stream of letters
-    public static void printNonRepeating(String str) {
-        int freq[] = new int[26];
-        Queue<Character> q = new LinkedList<>();
-        for (int i = 0; i < str.length(); i++) {
-            char ch = str.charAt(i);
-            q.add(ch);
-            freq[ch - 'a']++;
-            while (!q.isEmpty() && freq[q.peek() - 'a'] > 1) {
-                q.remove();
-            }
-            if (q.isEmpty()) {
-                System.out.print(-1 + " ");
+    static void printJobScheduling(ArrayList<Job> arr) {
+        int n = arr.size();
+        Collections.sort(arr, (a, b) -> {
+            return a.deadline - b.deadline;
+        });
+        ArrayList<Job> result = new ArrayList<>();
+        PriorityQueue<Job> maxHeap = new PriorityQueue<>((a, b) -> {
+            return b.profit - a.profit;
+        });
+        for (int i = n - 1; i > -1; i--) {
+            int slot_available;
+            if (i == 0) {
+                slot_available = arr.get(i).deadline;
             } else {
-                System.out.print(q.peek() + " ");
+                slot_available = arr.get(i).deadline - arr.get(i - 1).deadline;
+            }
+            maxHeap.add(arr.get(i));
+            while (slot_available > 0 && maxHeap.size() > 0) {
+                Job job = maxHeap.remove();
+                slot_available--;
+                result.add(job);
             }
         }
+        Collections.sort(result, (a, b) -> {
+            return a.deadline - b.deadline;
+        });
+        for (Job job : result) {
+            System.out.print(job.job_id + " ");
+        }
+        System.out.println();
     }
 
-    // Interleave two half of queue
-    public static void interLeave(Queue<Integer> q) {
-        Queue<Integer> q1 = new LinkedList<>();
-        int size = q.size();
-        for (int i = 0; i < size / 2; i++) {
-            q1.add(q.remove());
-        }
-        while (!q1.isEmpty()) {
-            q.add(q1.remove());
-            q.add(q.remove());
+    // Q.4 : Reversing the first K elements of a Queue
+    static class cell {
+        int x, y;
+        int dis;
+
+        public cell(int x, int y, int dis) {
+            this.x = x;
+            this.y = y;
+            this.dis = dis;
         }
     }
 
-    // Reverse a Queue
-    public static void reverseQueue(Queue<Integer> q) {
-        Stack<Integer> s = new Stack<>();
+    static boolean isInside(int x, int y, int N) {
+        if (x >= 1 && x <= N && y >= 1 && y <= N)
+            return true;
+        return false;
+    }
+
+    static int minStepToReachTarget(int knightPos[], int targetPos[], int N) {
+        int dx[] = { -2, -1, 1, 2, -2, -1, 1, 2 };
+        int dy[] = { -1, -2, -2, -1, 1, 2, 2, 1 };
+        Vector<cell> q = new Vector<>();
+        q.add(new cell(knightPos[0], knightPos[1], 0));
+        cell t;
+        int x, y;
+        boolean visit[][] = new boolean[N + 1][N + 1];
+        visit[knightPos[0]][knightPos[1]] = true;
         while (!q.isEmpty()) {
-            s.push(q.remove());
+            t = q.firstElement();
+            q.remove(0);
+            if (t.x == targetPos[0] && t.y == targetPos[1])
+                return t.dis;
+            for (int i = 0; i < 8; i++) {
+                x = t.x + dx[i];
+                y = t.y + dy[i];
+                if (isInside(x, y, N) && !visit[x][y]) {
+                    visit[x][y] = true;
+                    q.add(new cell(x, y, t.dis + 1));
+                }
+            }
         }
-        while (!s.isEmpty()) {
-            q.add(s.pop());
+        return Integer.MAX_VALUE;
+    }
+
+    // Q.5 : Maximum of all subarrays of size k
+    static void printMax(int arr[], int n, int k) {
+        Deque<Integer> Qi = new LinkedList<Integer>();
+        int i;
+        for (i = 0; i < k; ++i) {
+            while (!Qi.isEmpty() && arr[i] >= arr[Qi.peekLast()])
+                Qi.removeLast();
+            Qi.addLast(i);
         }
+        for (; i < n; ++i) {
+            System.out.print(arr[Qi.peek()] + " ");
+            while ((!Qi.isEmpty()) && Qi.peek() <= i - k)
+                Qi.removeFirst();
+            while ((!Qi.isEmpty()) && arr[i] >= arr[Qi.peekLast()])
+                Qi.removeLast();
+            Qi.addLast(i);
+        }
+        System.out.print(arr[Qi.peek()]);
     }
 
     public static void main(String[] args) {
@@ -311,45 +335,35 @@ public class Queues {
         // cqua.remove();
         // }
 
-        // QueueUsing2Stacks qs = new QueueUsing2Stacks();
-        // qs.add(1);
-        // qs.add(2);
-        // qs.add(3);
-        // qs.add(4);
+        // Q.1 : Generate Binary Numbers
+        // int n = 10;
+        // generatePrintBinary(n);
 
-        // while (!qs.isEmpty()) {
-        // System.out.println(qs.remove());
-        // }
+        // Q.2 : Connect n ropes with minimum cost
+        // int len[] = { 4, 3, 2, 6 };
+        // int size = len.length;
+        // System.out.println("Total cost for connecting" + " ropes is " + minCost(len,
+        // size));
 
-        // StackUsing2Queues sq = new StackUsing2Queues();
-        // sq.push(1);
-        // sq.push(2);
-        // sq.push(3);
-        // while (!sq.isEmpty()) {
-        // System.out.println(sq.pop());
-        // }
+        // Q.3 : Job Sequencing Problem
+        // ArrayList<Job> arr = new ArrayList<Job>();
+        // arr.add(new Job('a', 2, 100));
+        // arr.add(new Job('b', 1, 19));
+        // arr.add(new Job('c', 2, 27));
+        // arr.add(new Job('d', 1, 25));
+        // arr.add(new Job('e', 3, 15));
+        // System.out.println("Following is maximum " + "profit sequence of jobs");
+        // printJobScheduling(arr);
 
-        // First non repeating letter in stream of letters
-        // String str = "aabccxb";
-        // printNonRepeating(str);
+        // Q.4 : Reversing the first K elements of a Queue
+        // int N = 30;
+        // int knightPos[] = { 1, 1 };
+        // int targetPos[] = { 30, 30 };
+        // System.out.println(minStepToReachTarget(knightPos, targetPos, N));
 
-        // Interleave two half of queue
-        // Queue<Integer> q = new LinkedList<>();
-        // q.add(1);
-        // q.add(2);
-        // q.add(3);
-        // q.add(4);
-        // q.add(5);
-        // q.add(6);
-        // q.add(7);
-        // q.add(8);
-        // q.add(9);
-        // q.add(10);
-        // // interLeave(q);
-        // reverseQueue(q);
-        // while (!q.isEmpty()) {
-        // System.out.print(q.remove() + " ");
-        // }
-
+        // Q.5 : Maximum of all subarrays of size k
+        // int arr[] = { 12, 1, 78, 90, 57, 89, 56 };
+        // int k = 3;
+        // printMax(arr, arr.length, k);
     }
 }
