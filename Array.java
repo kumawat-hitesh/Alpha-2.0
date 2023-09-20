@@ -1,4 +1,4 @@
-public class Arrays {
+public class Array {
 
     //element present twice in array
     public static boolean twiceElement(int arr[]) {
@@ -75,14 +75,7 @@ public class Arrays {
         }
         return maxProfit;
     }
-
-    //triplets
-    public static void name() {
-        
-    }
-
-
-
+    
     public static void main(String[] args) {
         // int arr[] = {1,2,3,4,5,6,7};
         // boolean a = twiceElement(arr);
