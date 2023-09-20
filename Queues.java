@@ -1,8 +1,6 @@
 import java.util.*;
 import java.util.LinkedList;
 
-import javax.print.DocFlavor.STRING;
-
 public class Queues {
     static class QueuesUsingArrays {
 
