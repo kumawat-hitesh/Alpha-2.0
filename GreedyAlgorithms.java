@@ -138,5 +138,41 @@ public class GreedyAlgorithms {
         for (int i = 0; i < seq.size(); i++) {
             System.out.print(seq.get(i) + " ");
         }
+        System.out.println();
+
+        // Chocola problem
+        Integer costVer[] = { 2, 1, 3, 1, 4 };
+        Integer costHor[] = { 4, 1, 2 };
+
+        Arrays.sort(costVer, Collections.reverseOrder());
+        Arrays.sort(costHor, Collections.reverseOrder());
+
+        int v = 0, h = 0;
+        int vp = 1, hp = 1;
+        int cost = 0;
+
+        while (h < costHor.length && v < costVer.length) {
+            //horizontal cut
+            if(costVer[v] <= costHor[h]){
+                cost += (costHor[h] * vp);
+                hp++;
+                h++;
+            } else{
+                cost += (costVer[v] * hp);
+                vp++;
+                v++;
+            }
+        }
+        while (h < costHor.length) {
+            cost += (costHor[h] * vp);
+            hp++;
+            h++;
+        }
+        while (v < costVer.length) {
+            cost += (costVer[v] * hp);
+            vp++;
+            v++;
+        }
+        System.out.println("Minimum cost of cut : " + cost);
     }
 }
