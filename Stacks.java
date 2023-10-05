@@ -278,27 +278,27 @@ public class Stacks {
         // }
 
         // Next Greater Element
-        // int arr[] = { 6, 8, 0, 1, 3 };
-        // int nextGreater[] = new int[arr.length];
-        // Stack<Integer> s = new Stack<>();
+        int arr[] = { 6, 8, 0, 1, 3 };
+        int nextGreater[] = new int[arr.length];
+        Stack<Integer> s = new Stack<>();
 
-        // for (int i = arr.length - 1; i >= 0; i--) {
-        // // while
-        // while (!s.isEmpty() && arr[s.peek()] <= arr[i]) {
-        // s.pop();
-        // }
-        // // if - else
-        // if (s.isEmpty()) {
-        // nextGreater[i] = -1;
-        // } else {
-        // nextGreater[i] = arr[s.peek()];
-        // }
-        // // push in s
-        // s.push(i);
-        // }
-        // for (int j = 0; j < nextGreater.length; j++) {
-        // System.out.print(nextGreater[j] + " ");
-        // }
+        for (int i = arr.length - 1; i >= 0; i--) {
+            // while
+            while (!s.isEmpty() && arr[s.peek()] <= arr[i]) {
+                s.pop();
+            }
+            // if - else
+            if (s.isEmpty()) {
+                nextGreater[i] = -1;
+            } else {
+                nextGreater[i] = arr[s.peek()];
+            }
+            // push in s
+            s.push(i);
+        }
+        for (int j = 0; j < nextGreater.length; j++) {
+            System.out.print(nextGreater[j] + " ");
+        }
 
         // String str = "({[]})"; //valid parenthesis
         // System.out.println(isValid(str));
@@ -307,9 +307,9 @@ public class Stacks {
         // String str2 = "(a+b)";
         // System.out.println(isDuplicate(str2));
 
-        // max area in histogram
-        int arr[] = { 2, 1, 5, 6, 2, 3 };
-        maxAreaInHistogram(arr);
+        // // max area in histogram
+        // int arr[] = { 2, 1, 5, 6, 2, 3 };
+        // maxAreaInHistogram(arr);
 
     }
 }
