@@ -387,7 +387,8 @@ public class BinaryTrees {
         // System.out.print(count(root)); //count all nodes in BT
         // System.out.print(sumOfNodes(root)); //Sum of all nodes
         // System.out.print(diameter(root)); //Diameter of tree (basic approach)
-        // System.out.print(diameter2(root)); //Diameter of tree (optimized approach)
+        // System.out.print(diameter2(root).diameter); //Diameter of tree (optimized
+        // approach)
         // topView(root); //Top view of a tree
         // KLevel(root, 1, 3); // Kth Level -> 4 5 6 7
         // System.out.print(lowestCommonAncestor1(root, 4, 5).data); //2: Lowest common
