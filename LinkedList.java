@@ -358,7 +358,7 @@ public class LinkedList {
                 return;
             t = curr.next;
             for (count = 1; count <= N && t != null; count++) {
-                Node temp = t;
+                // Node temp = t;
                 t = t.next;
             }
             curr.next = t;
@@ -408,7 +408,6 @@ public class LinkedList {
         }
         System.out.println("null");
     }
-    
 
     public static void main(String[] args) {
         LinkedList ll = new LinkedList();
