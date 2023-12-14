@@ -13,63 +13,100 @@ class TrieNode { // Q.1 For Group Anagrams Together
 }
 
 public class Tries {
-    private static class Node2 { // Q.2 Longest Word in Dictionary
-        private char data2;
-        private String word;
-        private boolean isEnd2;
-        private Node2[] children;
+    // Q.1 Group Anagrams Together
+    // static TrieNode root1;
+    // List<List<String>> ans1;
 
-        public Node2(char data) {
-            this.data2 = data;
-            this.word = null;
-            this.isEnd2 = false;
-            this.children = new Node2[26];
-        }
-    }
+    // public List<List<String>> groupAnagrams(String[] strs) {
+    // ans1 = new ArrayList<>();
+    // root1 = new TrieNode();
+    // for (String word : strs) {
+    // build(word);
+    // }
+    // dfs(root1);
+    // return ans1;
+    // }
 
-    private Node2 root2 = new Node2('/');
-    private String ans2 = "";
+    // public void build(String s) {
+    // TrieNode temp = root1;
+    // char[] word = s.toCharArray();
+    // Arrays.sort(word);
+    // for (char c : word) {
+    // TrieNode child = temp.children[c - 'a'];
+    // if (child == null)
+    // temp.children[c - 'a'] = new TrieNode();
+    // temp = temp.children[c - 'a'];
+    // }
+    // temp.isEnd = true;
+    // temp.data.add(s);
+    // }
 
-    private void insert2(String word) {
-        Node2 curr = this.root2;
-        for (int i = 0; i < word.length(); i++) {
-            int childIdx = word.charAt(i) - 'a';
-            if (curr.children[childIdx] == null) {
-                curr.children[childIdx] = new Node2(word.charAt(i));
-            }
-            curr = curr.children[childIdx];
-        }
-        curr.isEnd2 = true;
-        curr.word = word;
-    }
+    // public void dfs(TrieNode rt) {
+    // if (rt.isEnd) {
+    // ans1.add(rt.data);
+    // }
+    // for (int i = 0; i < 26; i++) {
+    // if (rt.children[i] != null)
+    // dfs(rt.children[i]);
+    // }
+    // }
+    // private static class Node2 { // Q.2 Longest Word in Dictionary
+    // private char data2;
+    // private String word;
+    // private boolean isEnd2;
+    // private Node2[] children;
 
-    private void dfs(Node2 node) {
-        if (node == null) {
-            return;
-        }
-        if (node.word != null) {
-            if (node.word.length() > ans2.length()) {
-                ans2 = node.word;
-            } else if (node.word.length() == ans2.length() &&
-                    node.word.compareTo(ans) < 0) {
-                ans2 = node.word;
-            }
-        }
-        for (Node2 child : node.children) {
-            if (child != null && child.word != null) {
-                dfs(child);
-            }
-        }
-    }
+    // public Node2(char data) {
+    // this.data2 = data;
+    // this.word = null;
+    // this.isEnd2 = false;
+    // this.children = new Node2[26];
+    // }
+    // }
 
-    public String longestWord(String[] words) {
-        for (String word : words) {
-            insert2(word);
-        }
-        Node2 curr = this.root2;
-        dfs(curr);
-        return ans2;
-    }
+    // private Node2 root2 = new Node2('/');
+    // private String ans2 = "";
+
+    // private void insert2(String word) {
+    // Node2 curr = this.root2;
+    // for (int i = 0; i < word.length(); i++) {
+    // int childIdx = word.charAt(i) - 'a';
+    // if (curr.children[childIdx] == null) {
+    // curr.children[childIdx] = new Node2(word.charAt(i));
+    // }
+    // curr = curr.children[childIdx];
+    // }
+    // curr.isEnd2 = true;
+    // curr.word = word;
+    // }
+
+    // private void dfs(Node2 node) {
+    // if (node == null) {
+    // return;
+    // }
+    // if (node.word != null) {
+    // if (node.word.length() > ans2.length()) {
+    // ans2 = node.word;
+    // } else if (node.word.length() == ans2.length() &&
+    // node.word.compareTo(ans) < 0) {
+    // ans2 = node.word;
+    // }
+    // }
+    // for (Node2 child : node.children) {
+    // if (child != null && child.word != null) {
+    // dfs(child);
+    // }
+    // }
+    // }
+
+    // public String longestWord(String[] words) {
+    // for (String word : words) {
+    // insert2(word);
+    // }
+    // Node2 curr = this.root2;
+    // dfs(curr);
+    // return ans2;
+    // }
 
     static class Node {
         Node children[] = new Node[26];
@@ -184,46 +221,6 @@ public class Tries {
             }
         }
     }
-
-    // Q.1 Group Anagrams Together
-    static TrieNode root1;
-    List<List<String>> ans1;
-
-    public List<List<String>> groupAnagrams(String[] strs) {
-        ans1 = new ArrayList<>();
-        root1 = new TrieNode();
-        for (String word : strs) {
-            build(word);
-        }
-        dfs(root1);
-        return ans1;
-    }
-
-    public void build(String s) {
-        TrieNode temp = root1;
-        char[] word = s.toCharArray();
-        Arrays.sort(word);
-        for (char c : word) {
-            TrieNode child = temp.children[c - 'a'];
-            if (child == null)
-                temp.children[c - 'a'] = new TrieNode();
-            temp = temp.children[c - 'a'];
-        }
-        temp.isEnd = true;
-        temp.data.add(s);
-    }
-
-    public void dfs(TrieNode rt) {
-        if (rt.isEnd) {
-            ans1.add(rt.data);
-        }
-        for (int i = 0; i < 26; i++) {
-            if (rt.children[i] != null)
-                dfs(rt.children[i]);
-        }
-    }
-
-    // Q.2 Longest Word in Dictionary
 
     public static void main(String[] args) {
         // String words[] = { "the", "a", "there", "their", "any", "three" };
